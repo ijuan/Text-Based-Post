@@ -1,9 +1,12 @@
-package com.postserver.post.Post;
+
 
 public class Post {
 private String sender;
 private String title;
 private String body;
+public Post() {
+
+}
 public Post(String s, String t, String b) {
 this.sender = s;
 this.title = t;
@@ -35,17 +38,5 @@ return "Title: " + this.title + "\n" +
 
 
 }
-@Override
-public boolean equals(Object o) {
-    System.out.println("Checking if Equal");
-    boolean isEqual = false;
-    if (o != null && o instanceof Post) {
-        System.out.println(((Post)o).title);
-        if (this.title.equals( ((Post)o).title) && this.body.equals( ((Post)o).body) && this.sender.equals( ((Post)o).sender)) {
-            isEqual = true;
-         }
-    }
-    return isEqual;
-}
-    
+
 }
