@@ -1,17 +1,42 @@
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 public class Main {
 public static void main(String[] args) {
-    System.out.println(getPosts());
-  
-
-
+ sendpost("DaVinci","im davinci!!","Im sad");
 } 
+public static void sendpost(String s, String b, String t) {
+    try {
+        URL url = new URL("http://127.0.0.1:8080/api/post");
+        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+        byte[]json = ("{\"sender\":\""+s+"\",\"title\":\""+t+"\",\"body\":\""+b+"\"}").getBytes(StandardCharsets.UTF_8);
+        int length = json.length;
+        con.setFixedLengthStreamingMode(length);
+        //con.connect();
+        con.setDoOutput(true);
+        OutputStream out = con.getOutputStream();
+        out.write(json);
+        BufferedReader decoder = new BufferedReader(
+                new InputStreamReader(con.getInputStream())
+            );
+            System.out.println(decoder.readLine());
+    } catch(IOException e) {
+      System.out.println(e.getMessage());
+    }
+    catch(Exception e) {
+        System.out.println(e);
+    }
+
+  }
+
 public static ArrayList<Post> getPosts() {
     try{
 
@@ -60,5 +85,8 @@ public static ArrayList<Post> getPosts() {
         System.out.println(e);
         }
         return null;
+    
+
+
 }
 }
