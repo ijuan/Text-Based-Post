@@ -29,9 +29,9 @@ public class PostController {
 		case 0:	
 			return new ResponseEntity<String>("Congrats! Your Post Was Successful",HttpStatus.CREATED);
 		case -1:
-			return new ResponseEntity<String>("Uh Oh! Not All The Fields Were Entered!",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Uh Oh! Not All The Fields Were Entered!",HttpStatus.EXPECTATION_FAILED);
 		case 2:
-			return new ResponseEntity<String>("Uh Oh! There Was A Duplicate Entry!",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Uh Oh! There Was A Duplicate Entry!",HttpStatus.CONFLICT);
 		default:
 			return new ResponseEntity<String>("Uh Oh! Something Went Wrong!",HttpStatus.BAD_REQUEST);
 		}
